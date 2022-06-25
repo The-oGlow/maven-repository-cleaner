@@ -1,40 +1,28 @@
-The Maven repository cleaner (bash script), which keeps only the latest versions of artifacts.
-
 # What is this tool?
 
-Maven is a great software project management and comprehension tool, in particular because it manages its own dependencies (plugins) as well as your project's dependencies neatly by separating between what your project _really_ does and the artifacts required to build, test, package and release it.
+The Maven repository cleaner (bash script), which keeps only the latest versions of artifacts.
 
-It is best practice to keep your Maven dependencies up to date, as newer versions tend to fix bugs (including security issues), which you can achieve by:
-
-* Doing it yourself, by running `mvn versions:display-dependency-updates` and `mvn versions:display-plugin-updates` regularly
-... and/or
-* Relying on tools such as Dependabot (which, if your code is on Github, will be running in the background anyway)
-
-One downside of Maven's methodology is that as these artifacts evolve in time, and hence your project and plugin dependencies' versions change over time, your Maven local repository will have the older versions you built with and the new versions you upgraded to; which means it will grow bigger, and bigger, and bigger. This is usually not a problem on your local environment as storage tends to be quite cheap these days, on the other hand if you are using a shared Continous Integration platform (such as Semaphore CI or Travis CI) you might feel the pain because the Virtual Machine allocated to your build is very likely to take longer to be initialized, and in some cases the CI might stop caching your Maven dependencies altogether because it goes beyond what they provide you as cache - Both slowing down the reactiveness of your Continous Development process.
-
-# Why this tool? There are already many answers to this problem when I search on my favorite search engine!
-
-I did spend some hours looking at this problem and to the answers, many of them rely on the `atime` (which is the last access time on UNIX systems), which is an unreliable solution for two reasons:
-
-1. Most UNIX systems (including Linux and macOS) update the `atime` irregularly at best, and that is for a reason: a complete implementation of `atime` would imply the whole file system would be slowed down by having to update (i.e., write to the disk) the `atime` every time a file is read, moreover having a such an extreme number of updates would very rapidly wear out the modern, high performance SSD drives
-1. On a CI/CD environment, the VM that's used to build your Maven project will have its Maven repository restored from a shared storage, which in turn will make the `atime` get set to a "recent" value
+**This is a fork from [alitokmen/maven-repository-cleaner](https://github.com/alitokmen/maven-repository-cleaner)**.
 
 # How does this tool work?
 
-The bash `maven-repository-cleaner.sh` script has one function, `cleanDirectory`, which is a recursive function looping through the `~/.m2/repository/` and does the following:
+The bash `maven-repository-cleaner.sh` script
 
-* When the subdirectory is not a version number, it digs into that subdirectory for analysis
-* When a directory has subdirectories which appear to be version numbers, it only deletes all lower versions
+* verifies if the chosen directory is the root of the maven repository
+* has the function, `cleanDirectory`, which is a recursive function looping through the `~/.m2/repository/` and does the following:
+    * When the subdirectory is not a version number, it digs into that subdirectory for analysis
+    * When a directory has subdirectories which appear to be version numbers, it only deletes all lower versions
+* shows the used amount of diskspace before and after the clean up
 
 In practice, if you have a hierarchy such as:
 
 * `artifact-group`
-  * `artifact-name`
-    * `1.8`
-    * `1.10`
-    * `1.2`
+    * `artifact-name`
+        * `1.8`
+        * `1.10`
+        * `1.2`
 
-... `maven-repository-cleaner.sh` script will:
+the `maven-repository-cleaner.sh` script will:
 
 1. Navigate to `artifact-group`
 1. In `artifact-group`, navigate to `artifact-name`
@@ -44,21 +32,37 @@ In practice, if you have a hierarchy such as:
 
 Just use the below three lines, either at the beginning or at the end of the build:
 
+## Commandline
+
+### Dry Run
+
 ```
-wget https://raw.githubusercontent.com/alitokmen/maven-repository-cleaner/main/maven-repository-cleaner.sh
-chmod +x maven-repository-cleaner.sh
+cd <maven-repostory>
 ./maven-repository-cleaner.sh
 ```
+
+### Real Execution
+
+```
+cd <maven-repostory>
+./maven-repository-cleaner.sh -y
+```
+
+## Script Integration
+
+```
+cd <maven-repostory>
+wget https://raw.githubusercontent.com/the-oglow/maven-repository-cleaner/main/maven-repository-cleaner.sh
+chmod +x maven-repository-cleaner.sh
+./maven-repository-cleaner.sh -y
+```
+
 # Does the tool have limitations?
 
-AFAIK, two limitations:
+Only **ONE** limitation:
 
-1. The start directory is `~/.m2/repository/`
 1. The tool believes, for example, that the version `1.1` is older than the version `1.1-alpha-2`
 
 # What is the license?
 
-This tool is licensed under the MIT License, which means that:
-
-* There are no warranties, if anything breaks you can't hold me responsible for it
-* You can do "pretty much anything" with the tool, without having to ask me, including cloning, modifying and even selling it
+This forked tool is still licensed under the MIT License.
