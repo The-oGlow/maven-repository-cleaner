@@ -37,21 +37,21 @@ Just use the below three lines, either at the beginning or at the end of the bui
 ### Dry Run
 
 ```
-cd <maven-repostory>
+cd <maven-repository>
 ./maven-repository-cleaner.sh
 ```
 
 ### Real Execution
 
 ```
-cd <maven-repostory>
+cd <maven-repository>
 ./maven-repository-cleaner.sh -y
 ```
 
 ## Script Integration
 
 ```
-cd <maven-repostory>
+cd <maven-repository>
 wget https://raw.githubusercontent.com/the-oglow/maven-repository-cleaner/main/maven-repository-cleaner.sh
 chmod +x maven-repository-cleaner.sh
 ./maven-repository-cleaner.sh -y
