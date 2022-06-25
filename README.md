@@ -52,7 +52,7 @@ cd <maven-repository>
 
 ```
 cd <maven-repository>
-wget https://raw.githubusercontent.com/the-oglow/maven-repository-cleaner/main/maven-repository-cleaner.sh
+wget -S -N https://raw.githubusercontent.com/the-oglow/maven-repository-cleaner/1.00.00/maven-repository-cleaner.sh
 chmod +x maven-repository-cleaner.sh
 ./maven-repository-cleaner.sh -y
 ```
