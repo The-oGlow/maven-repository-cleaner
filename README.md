@@ -1,3 +1,6 @@
+[![Latest Release](https://img.shields.io/github/v/release/The-oGlow/maven-repository-cleaner?sort=semver&logo=github&style=plastic)](https://github.com/The-oGlow/maven-repository-cleaner/releases)
+[![Software License](https://img.shields.io/badge/license-license-brightgreen?logo=github&style=plastic)](./LICENSE)
+
 # What is this tool?
 
 The Maven repository cleaner (bash script), which keeps only the latest versions of artifacts.
@@ -66,3 +69,20 @@ Only **ONE** limitation:
 # What is the license?
 
 This forked tool is still licensed under the MIT License.
+
+# Project Status
+
+[![Quality Gate](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/dashboard?id=the-oglow_maven-repository-cleaner)
+
+## Quality Information
+
+[![Quality Gate](https://sonarcloud.io/api/project_badges/quality_gate?project=the-oglow_maven-repository-cleaner)](https://sonarcloud.io/dashboard?id=the-oglow_maven-repository-cleaner)
+[![Codacy Scan Status](https://img.shields.io/codacy/grade/f5ea3eed6b194c398697fef30d7b8672?logo=codacy&style=plastic)](https://www.codacy.com/gh/the-oglow/maven-repository-cleaner)
+
+## Build Information
+
+[![Pipeline status on main branch](https://img.shields.io/github/workflow/status/The-oGlow/maven-repository-cleaner/Build/main?label=main&logo=github&style=plastic)](https://github.com/The-oGlow/maven-repository-cleaner/actions/workflows/build.yml?query=branch%3Amain)
+
+# Test Information
+
+NOTE: **_No tests in this project!_**
